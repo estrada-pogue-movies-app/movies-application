@@ -1,0 +1,15 @@
+{
+  "name": "movies-application",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "json-server --watch data/movies.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.2",
+    "json-server": "^0.17.4"
+  }
+}
