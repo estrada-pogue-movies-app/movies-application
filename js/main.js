@@ -5,7 +5,11 @@ const getMovie = () => {
          headers: {
               "Content-Type": "application/json"
          }
-    }
+    };
+    return fetch (url,options).then(response => response.json())
+        .then(movies => {
+            return console.log(movies);
+        })
 }
 
 
@@ -14,5 +18,6 @@ const getMovie = () => {
 
 //MAIN
 (() => {
-
+getMovie();
+//ƒ json() { [native code] }
 })();
