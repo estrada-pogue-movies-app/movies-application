@@ -5,11 +5,20 @@
       "title": "Shrek",
       "rating": 5
     },
-
     {
       "id": 2,
       "title": "Shrek 2",
       "rating": 4
+    },
+    {
+      "title": "shrek the third",
+      "rating": "5",
+      "id": 3
+    },
+    {
+      "title": "shrek the fourth",
+      "rating": "5",
+      "id": 4
     }
   ]
 }
