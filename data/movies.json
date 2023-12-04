@@ -3,7 +3,7 @@
     {
       "id": 1,
       "title": "Not Shrek",
-      "rating": "8",
+      "rating": "9",
       "poster": "shrek.webp",
       "genre": "family"
     },
@@ -12,14 +12,14 @@
       "rating": "10",
       "id": 4,
       "poster": "interstellar.jpg",
-      "genre": "sci-fi"
+      "genre": "family"
     },
     {
       "title": "School of Rock",
-      "rating": "8",
+      "rating": "9",
       "id": 5,
       "poster": "school_of_rock.webp",
-      "genre": "comedy"
+      "genre": "family"
     },
     {
       "title": "Full Metal Jacket",
