@@ -76,6 +76,7 @@ const handleMovieEdit = ({id, title, rating}, movieCard) => {
                <p>Rating: ${rating}</p>
                <input id="rating-form${id}" class="edit-rating" type="text" name="rating" value="${rating}" placeholder="Movie Rating">
                <button class="submit">Submit Edit</button>
+               <button class="delete">Delete Movie</button>
           `;
      const submitBtn = movieCard.querySelector("button.submit");
      submitBtn.addEventListener("click", e=>{
@@ -93,6 +94,7 @@ const handleMovieEdit = ({id, title, rating}, movieCard) => {
                <p>Title: ${editTitle}</p>
                <p>Rating: ${editRating}</p>
                <button class="edit">Edit Movie</button>
+               <button class="delete">Delete Movie</button>
           `;
           const editBtn = movieCard.querySelector("button.edit");
           editBtn.addEventListener("click", e=>{
@@ -110,12 +112,35 @@ const renderMovie = ({id, title, rating}) => {
           <p>Title: ${title}</p>
           <p>Rating: ${rating}</p>
           <button class="edit">Edit Movie</button>
+          <button class="delete">Delete Movie</button>
      `;
      const editBtn = movieCard.querySelector("button.edit");
      editBtn.addEventListener("click", e=>{
           handleMovieEdit({id, title, rating}, movieCard);
      });
+     const deleteBtn = movieCard.querySelector("button.delete");
+     deleteBtn.addEventListener("click", e => {
+          handleMovieDelete({id, title, rating}, movieCard);
+     })
      movieCol.appendChild(movieCard);
+}
+
+const handleMovieDelete = ({id, title, rating}, movieCard) => {
+     const url = `http://localhost:3000/movies/${id}`;
+     const options = {
+          method: "DELETE",
+          headers: {
+               "Content-Type": "application/json"
+          }
+     }
+     return fetch (url, options).then(response => response.json())
+         .then(movies => {
+              return movies;
+         })
+     // return fetch (url,options).then(response => response.json())
+     //     .then(movies => {
+     //          return movies;
+     //     })
 }
 
 const renderMovies = (movies) => {
@@ -145,10 +170,15 @@ const editMovieHandler = (movies) => {
                <p>Rating: ${movies[i].rating}</p>
                <input id="rating-form${movies[i].id}" class="edit-rating" type="text" name="rating" value="${movies[i].rating}" placeholder="Movie Rating">
                <button id=submit-id${movies[i].id} class="submit">Submit Edit</button>
+               <button class="delete">Delete Movie</button>
                `
           });
      }
 }
+
+
+
+
 
 //MAIN
 (() => {
