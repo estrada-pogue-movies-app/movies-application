@@ -32,6 +32,26 @@ const postMovie = (title, rating) => {
      })
 }
 
+const patchMovie = (id, movie) => {
+     const newMovie = {
+          ...movie
+     }
+     const body = JSON.stringify(newMovie);
+
+     const url = `http://localhost:3000/movies/${id}`;
+     const options = {
+          method: "PATCH",
+          headers: {
+               "Content-Type": "application/json",
+          },
+          body: body,
+     };
+     return fetch (url,options).then(response => response.json())
+     .then(movies => {
+          return movies;
+     })
+}
+
 const formHandler = () => {
      const formBtn = document.querySelector('#submit-movie');
      formBtn.addEventListener('click', e=>{
@@ -48,6 +68,56 @@ const formHandler = () => {
      });
 };
 
+const handleMovieEdit = ({id, title, rating}, movieCard) => {
+     movieCard.innerHTML = `
+               <p>Number: ${id}</p>
+               <p>Title: ${title}</p>
+               <input id="title-form${id}" class="edit-title" type="text" name="title" value="${title}" placeholder="Movie Title">
+               <p>Rating: ${rating}</p>
+               <input id="rating-form${id}" class="edit-rating" type="text" name="rating" value="${rating}" placeholder="Movie Rating">
+               <button class="submit">Submit Edit</button>
+          `;
+     const submitBtn = movieCard.querySelector("button.submit");
+     submitBtn.addEventListener("click", e=>{
+          /// run patch method
+          const editTitle = movieCard.querySelector('.edit-title').value;
+          const editRating = movieCard.querySelector('.edit-rating').value;
+          const editedMovie = {
+               id: id,
+               title: editTitle,
+               rating: editRating,
+          }
+          patchMovie(id, editedMovie);
+          movieCard.innerHTML = `
+               <p>Number: ${id}</p>
+               <p>Title: ${editTitle}</p>
+               <p>Rating: ${editRating}</p>
+               <button class="edit">Edit Movie</button>
+          `;
+          const editBtn = movieCard.querySelector("button.edit");
+          editBtn.addEventListener("click", e=>{
+               handleMovieEdit({id, title, rating}, movieCard);
+          })
+     });
+}
+
+const renderMovie = ({id, title, rating}) => {
+     const movieCol = document.querySelector('.page-wrapper .col');
+     const movieCard = document.createElement('div');
+     movieCard.classList.add('movie-card');
+     movieCard.innerHTML = `
+          <p>Number: ${id}</p>
+          <p>Title: ${title}</p>
+          <p>Rating: ${rating}</p>
+          <button class="edit">Edit Movie</button>
+     `;
+     const editBtn = movieCard.querySelector("button.edit");
+     editBtn.addEventListener("click", e=>{
+          handleMovieEdit({id, title, rating}, movieCard);
+     });
+     movieCol.appendChild(movieCard);
+}
+
 const renderMovies = (movies) => {
      const movieCol = document.querySelector('.page-wrapper .col');
      movieCol.innerHTML = `
@@ -60,13 +130,23 @@ const renderMovies = (movies) => {
      const loadingSpinner = document.querySelector('#loading-wrapper');
      loadingSpinner.remove();
      for (let movie of movies) {
-          const movieCard = document.createElement('div');
-          movieCard.innerHTML = `
-          <p>Number: ${movie.id}</p>
-          <p>Title: ${movie.title}</p>
-          <p>Rating: ${movie.rating}</p>
-     `
-     movieCol.appendChild(movieCard);
+          renderMovie(movie);
+     }
+}
+
+const editMovieHandler = (movies) => {
+     const editBtns = document.querySelectorAll('.edit');
+     for (let i = 0; i<editBtns.length; i++) {
+          editBtns[i].addEventListener('click', e=> {
+               editBtns[i].parentElement.innerHTML = `
+               <p>Number: ${movies[i].id}</p>
+               <p>Title: ${movies[i].title}</p>
+               <input id="title-form${movies[i].id}" class="edit-title" type="text" name="title" value="${movies[i].title}" placeholder="Movie Title">
+               <p>Rating: ${movies[i].rating}</p>
+               <input id="rating-form${movies[i].id}" class="edit-rating" type="text" name="rating" value="${movies[i].rating}" placeholder="Movie Rating">
+               <button id=submit-id${movies[i].id} class="submit">Submit Edit</button>
+               `
+          });
      }
 }
 
@@ -75,6 +155,7 @@ const renderMovies = (movies) => {
 getMovies()
      .then(movies => {
           renderMovies(movies);
+          editMovieHandler(movies);
      });
 formHandler();
 
