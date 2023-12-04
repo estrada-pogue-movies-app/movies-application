@@ -102,7 +102,7 @@ const handleMovieEdit = ({id, title, rating}, movieCard) => {
 }
 
 const renderMovie = ({id, title, rating}) => {
-     const movieCol = document.querySelector('.page-wrapper .col');
+     const movieCol = document.querySelector('.page-wrapper .movie-wrapper');
      const movieCard = document.createElement('div');
      movieCard.classList.add('movie-card');
      movieCard.innerHTML = `
@@ -138,7 +138,7 @@ const handleMovieDelete = ({id, title, rating}, movieCard) => {
 }
 
 const renderMovies = (movies) => {
-     const movieCol = document.querySelector('.page-wrapper .col');
+     const movieCol = document.querySelector('.page-wrapper .movie-wrapper');
      movieCol.innerHTML = `
           <div id=\"loading-wrapper\">Loading...
                <div class="spinner-border" role="status">
@@ -169,9 +169,20 @@ const editMovieHandler = (movies) => {
      }
 }
 
-
-
-
+const filterMovies = (movies) => {
+     let movieResult = movies;
+     const searchInput = document.querySelector('#search');
+     const searchValue = searchInput.value;
+     searchInput.addEventListener('input', e=> {
+          movieResult = movieResult.filter(movie=>{
+               if(!searchValue) {
+                    return true;
+               }
+               return movie.title.toLowerCase().includes(searchValue.toLowerCase());
+          })
+          renderMovies(movieResult);
+     });
+}
 
 //MAIN
 (() => {
@@ -179,6 +190,7 @@ getMovies()
      .then(movies => {
           renderMovies(movies);
           editMovieHandler(movies);
+          filterMovies(movies);
      });
 formHandler();
 

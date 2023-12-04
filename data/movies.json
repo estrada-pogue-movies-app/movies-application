@@ -2,8 +2,8 @@
   "movies": [
     {
       "id": 1,
-      "title": "Shrek",
-      "rating": "25"
+      "title": "Shrek 2",
+      "rating": "8"
     },
     {
       "title": "Interstellar",
