@@ -11,6 +11,13 @@
     max-height: 50%;
     max-width: 30%;
     text-align: center;
+    transition: all 0.3s ease;
+}
+
+.card:hover{
+    scale: 1.2;
+    position: relative;
+    z-index: 1;
 }
 
 .edit {
