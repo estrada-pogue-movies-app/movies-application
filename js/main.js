@@ -70,7 +70,6 @@ const formHandler = () => {
 
 const handleMovieEdit = ({id, title, rating}, movieCard) => {
      movieCard.innerHTML = `
-               <p>Number: ${id}</p>
                <p>Title: ${title}</p>
                <input id="title-form${id}" class="edit-title" type="text" name="title" value="${title}" placeholder="Movie Title">
                <p>Rating: ${rating}</p>
@@ -90,7 +89,6 @@ const handleMovieEdit = ({id, title, rating}, movieCard) => {
           }
           patchMovie(id, editedMovie);
           movieCard.innerHTML = `
-               <p>Number: ${id}</p>
                <p>Title: ${editTitle}</p>
                <p>Rating: ${editRating}</p>
                <button class="edit">Edit Movie</button>
@@ -108,7 +106,6 @@ const renderMovie = ({id, title, rating}) => {
      const movieCard = document.createElement('div');
      movieCard.classList.add('movie-card');
      movieCard.innerHTML = `
-          <p>Number: ${id}</p>
           <p>Title: ${title}</p>
           <p>Rating: ${rating}</p>
           <button class="edit">Edit Movie</button>
@@ -121,6 +118,7 @@ const renderMovie = ({id, title, rating}) => {
      const deleteBtn = movieCard.querySelector("button.delete");
      deleteBtn.addEventListener("click", e => {
           handleMovieDelete({id, title, rating}, movieCard);
+          movieCard.remove();
      })
      movieCol.appendChild(movieCard);
 }
@@ -137,10 +135,6 @@ const handleMovieDelete = ({id, title, rating}, movieCard) => {
          .then(movies => {
               return movies;
          })
-     // return fetch (url,options).then(response => response.json())
-     //     .then(movies => {
-     //          return movies;
-     //     })
 }
 
 const renderMovies = (movies) => {
@@ -164,7 +158,6 @@ const editMovieHandler = (movies) => {
      for (let i = 0; i<editBtns.length; i++) {
           editBtns[i].addEventListener('click', e=> {
                editBtns[i].parentElement.innerHTML = `
-               <p>Number: ${movies[i].id}</p>
                <p>Title: ${movies[i].title}</p>
                <input id="title-form${movies[i].id}" class="edit-title" type="text" name="title" value="${movies[i].title}" placeholder="Movie Title">
                <p>Rating: ${movies[i].rating}</p>
