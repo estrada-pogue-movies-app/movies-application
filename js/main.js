@@ -70,7 +70,7 @@ const formHandler = () => {
 
 const handleMovieEdit = ({id, title, rating}, movieCard) => {
      movieCard.innerHTML = `
-               <p>Title: ${title}</p>
+               <p>${title}</p>
                <input id="title-form${id}" class="edit-title" type="text" name="title" value="${title}" placeholder="Movie Title">
                <p>Rating: ${rating}</p>
                <input id="rating-form${id}" class="edit-rating" type="text" name="rating" value="${rating}" placeholder="Movie Rating">
@@ -89,7 +89,7 @@ const handleMovieEdit = ({id, title, rating}, movieCard) => {
           }
           patchMovie(id, editedMovie);
           movieCard.innerHTML = `
-               <p>Title: ${editTitle}</p>
+               <p>${editTitle}</p>
                <p>Rating: ${editRating}</p>
                <button class="edit">Edit Movie</button>
                <button class="delete">Delete Movie</button>
@@ -104,9 +104,9 @@ const handleMovieEdit = ({id, title, rating}, movieCard) => {
 const renderMovie = ({id, title, rating}) => {
      const movieCol = document.querySelector('.page-wrapper .movie-wrapper');
      const movieCard = document.createElement('div');
-     movieCard.classList.add('movie-card');
+     movieCard.classList.add('movie-card', 'col-3');
      movieCard.innerHTML = `
-          <p>Title: ${title}</p>
+          <p>${title}</p>
           <p>Rating: ${rating}</p>
           <button class="edit">Edit Movie</button>
           <button class="delete">Delete Movie</button>
