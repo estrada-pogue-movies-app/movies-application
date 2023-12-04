@@ -153,34 +153,21 @@ const renderMovies = (movies) => {
      }
 }
 
-const editMovieHandler = (movies) => {
-     const editBtns = document.querySelectorAll('.edit');
-     for (let i = 0; i<editBtns.length; i++) {
-          editBtns[i].addEventListener('click', e=> {
-               editBtns[i].parentElement.innerHTML = `
-               <p>Title: ${movies[i].title}</p>
-               <input id="title-form${movies[i].id}" class="edit-title" type="text" name="title" value="${movies[i].title}" placeholder="Movie Title">
-               <p>Rating: ${movies[i].rating}</p>
-               <input id="rating-form${movies[i].id}" class="edit-rating" type="text" name="rating" value="${movies[i].rating}" placeholder="Movie Rating">
-               <button id=submit-id${movies[i].id} class="submit">Submit Edit</button>
-               <button class="delete">Delete Movie</button>
-               `
-          });
-     }
-}
-
-const filterMovies = (movies) => {
-     let movieResult = movies;
+const filterMovies = () => {
      const searchInput = document.querySelector('#search');
-     const searchValue = searchInput.value;
-     searchInput.addEventListener('input', e=> {
-          movieResult = movieResult.filter(movie=>{
-               if(!searchValue) {
-                    return true;
-               }
-               return movie.title.toLowerCase().includes(searchValue.toLowerCase());
-          })
-          renderMovies(movieResult);
+     searchInput.addEventListener('input', e => {
+          getMovies()
+               .then(movies=> {
+                    let movieResult = movies;
+                    const searchValue = e.target.value;
+                    movieResult = movieResult.filter(movie => {
+                         if (!searchValue) {
+                              return true;
+                         }
+                         return movie.title.toLowerCase().includes(searchValue.toLowerCase());
+                    });
+                    renderMovies(movieResult);
+               });
      });
 }
 
@@ -189,10 +176,9 @@ const filterMovies = (movies) => {
 getMovies()
      .then(movies => {
           renderMovies(movies);
-          editMovieHandler(movies);
-          filterMovies(movies);
      });
 formHandler();
+filterMovies();
 
 //ƒ json() { [native code] }
 })();

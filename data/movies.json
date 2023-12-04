@@ -2,7 +2,7 @@
   "movies": [
     {
       "id": 1,
-      "title": "Shrek 2",
+      "title": "Shrek",
       "rating": "8"
     },
     {
@@ -64,11 +64,6 @@
       "title": "Scott Pilgrim vs the World",
       "rating": "12",
       "id": 15
-    },
-    {
-      "title": "shrek again ",
-      "rating": "7",
-      "id": 16
     }
   ]
 }
