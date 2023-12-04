@@ -3,77 +3,92 @@
     {
       "id": 1,
       "title": "Shrek",
-      "rating": "8"
+      "rating": "8",
+      "poster": "shrek.webp"
     },
     {
       "title": "Interstellar",
       "rating": "10",
-      "id": 4
+      "id": 4,
+      "poster": "interstellar.jpg"
     },
     {
       "title": "School of Rock",
       "rating": "8",
-      "id": 5
+      "id": 5,
+      "poster": "school_of_rock.webp"
     },
     {
       "title": "Full Metal Jacket",
       "rating": "9",
-      "id": 6
+      "id": 6,
+      "poster": "full_metal_jacket.webp"
     },
     {
       "title": "Constantine",
       "rating": "6",
-      "id": 7
+      "id": 7,
+      "poster": "constantine.jpg"
     },
     {
       "title": "Alien",
       "rating": "8",
-      "id": 8
+      "id": 8,
+      "poster": "alien.webp"
     },
     {
       "title": "Ace Ventura: When Nature Calls",
       "rating": "9",
-      "id": 9
+      "id": 9,
+      "poster": "ace_ventura_when_nature_calls.webp"
     },
     {
       "title": "Avengers: Endgame",
       "rating": "8",
-      "id": 10
+      "id": 10,
+      "poster": "avengers_endgame.webp"
     },
     {
       "title": "The Dark Knight",
       "rating": "7",
-      "id": 11
+      "id": 11,
+      "poster": "the_dark_knight.webp"
     },
     {
       "title": "Dune",
       "rating": "6",
-      "id": 12
+      "id": 12,
+      "poster": "dune.webp"
     },
     {
       "title": "Robocop",
       "rating": "7",
-      "id": 13
+      "id": 13,
+      "poster": "robocop.webp"
     },
     {
       "title": "Elf",
       "rating": "6",
-      "id": 14
+      "id": 14,
+      "poster": "elf.webp"
     },
     {
       "title": "Scott Pilgrim vs the World",
       "rating": "12",
-      "id": 15
+      "id": 15,
+      "poster": "scott_pilgrim_vs_the_world.webp"
     },
     {
       "title": "Crocodile Dundee",
       "rating": "8",
-      "id": 16
+      "id": 16,
+      "poster": "crocodile_dundee.webp"
     },
     {
       "title": "her",
       "rating": "1",
-      "id": 17
+      "id": 17,
+      "poster": "her.jpg"
     }
   ]
 }

@@ -6,6 +6,24 @@
     min-height: 100dvh;
 }
 
-.movie-card {
-    border: 1px solid black;
+.card {
+    border: 5px solid black;
+    max-height: 50%;
+    max-width: 30%;
+    text-align: center;
+}
+
+.edit {
+    width: 50px;
+    height: 50px;
+}
+
+.delete {
+    width: 50px;
+    height: 50px;
+}
+
+.submit {
+    width: 50px;
+    height: 50px;
 }

@@ -68,14 +68,15 @@ const formHandler = () => {
      });
 };
 
-const handleMovieEdit = ({id, title, rating}, movieCard) => {
+const handleMovieEdit = ({id, title, rating, poster}, movieCard) => {
      movieCard.innerHTML = `
-               <p>${title}</p>
-               <input id="title-form${id}" class="edit-title" type="text" name="title" value="${title}" placeholder="Movie Title">
-               <p>Rating: ${rating}</p>
-               <input id="rating-form${id}" class="edit-rating" type="text" name="rating" value="${rating}" placeholder="Movie Rating">
-               <button class="submit">Submit Edit</button>
-               <button class="delete">Delete Movie</button>
+               <img src="../img/${poster}" className="card-img-top" alt="${title}">
+               <div className="card-body">
+               <span>Title:</span><input id="title-form${id}" class="edit-title" type="text" name="title" value="${title}" placeholder="Movie Title">
+               <span>Rating:</span><input id="rating-form${id}" class="edit-rating" type="text" name="rating" value="${rating}" placeholder="Movie Rating"><br>
+               <button class="submit"><img src="../img/bandaid.svg"</button>
+               <button class="delete"><img src="../img/trash-fill.svg"</button>
+               </div>
           `;
      const submitBtn = movieCard.querySelector("button.submit");
      submitBtn.addEventListener("click", e=>{
@@ -86,44 +87,49 @@ const handleMovieEdit = ({id, title, rating}, movieCard) => {
                id: id,
                title: editTitle,
                rating: editRating,
+               poster: poster,
           }
           patchMovie(id, editedMovie);
           movieCard.innerHTML = `
-               <p>${editTitle}</p>
-               <p>Rating: ${editRating}</p>
-               <button class="edit">Edit Movie</button>
-               <button class="delete">Delete Movie</button>
+               <img src="../img/${poster}" className="card-img-top" alt="${title}">
+               <div className="card-body">
+               <h5 className="card-title">${editTitle}</h5>
+               <p className="card-text">${editRating}</p>
+               <button class="edit"><img src="../img/bandaid-fill.svg"></button><button class="delete"><img src="../img/trash-fill.svg"</button>
+               </div>
           `;
           const editBtn = movieCard.querySelector("button.edit");
           editBtn.addEventListener("click", e=>{
-               handleMovieEdit({id, title, rating}, movieCard);
+               handleMovieEdit({id, title, rating, poster}, movieCard);
           })
      });
 }
 
-const renderMovie = ({id, title, rating}) => {
+const renderMovie = ({id, title, rating, poster}) => {
      const movieCol = document.querySelector('.page-wrapper .movie-wrapper');
      const movieCard = document.createElement('div');
-     movieCard.classList.add('movie-card', 'col-3');
+     movieCard.classList.add('card');
      movieCard.innerHTML = `
-          <p>${title}</p>
-          <p>Rating: ${rating}</p>
-          <button class="edit">Edit Movie</button>
-          <button class="delete">Delete Movie</button>
-     `;
+          <img src="../img/${poster}" className="card-img-top" alt="${title}">
+          <div className="card-body">
+               <h5 className="card-title">${title}</h5>
+               <p className="card-text">${rating}</p>
+               <button class="edit"><img src="../img/bandaid-fill.svg"></button><button class="delete"><img src="../img/trash-fill.svg"</button>
+          </div>
+          `;
      const editBtn = movieCard.querySelector("button.edit");
      editBtn.addEventListener("click", e=>{
-          handleMovieEdit({id, title, rating}, movieCard);
+          handleMovieEdit({id, title, rating, poster}, movieCard);
      });
      const deleteBtn = movieCard.querySelector("button.delete");
      deleteBtn.addEventListener("click", e => {
-          handleMovieDelete({id, title, rating}, movieCard);
+          handleMovieDelete({id, title, rating, poster}, movieCard);
           movieCard.remove();
      })
      movieCol.appendChild(movieCard);
 }
 
-const handleMovieDelete = ({id, title, rating}, movieCard) => {
+const handleMovieDelete = ({id, title, rating, poster}, movieCard) => {
      const url = `http://localhost:3000/movies/${id}`;
      const options = {
           method: "DELETE",
