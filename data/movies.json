@@ -12,14 +12,14 @@
       "rating": "10",
       "id": 4,
       "poster": "interstellar.jpg",
-      "genre": "family"
+      "genre": "sci-fi"
     },
     {
       "title": "School of Rock",
       "rating": "9",
       "id": 5,
       "poster": "school_of_rock.webp",
-      "genre": "family"
+      "genre": "comedy"
     },
     {
       "title": "Full Metal Jacket",
