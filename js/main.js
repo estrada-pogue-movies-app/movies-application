@@ -12,10 +12,11 @@ const getMovies = () => {
         })
 }
 
-const postMovie = (title, rating) => {
+const postMovie = (title, rating, genre) => {
      const newMovie = {
           title,
-          rating
+          rating,
+          genre
      }
      const body = JSON.stringify(newMovie);
      const url = `http://localhost:3000/movies`;
@@ -53,14 +54,12 @@ const patchMovie = (id, movie) => {
 }
 
 const formHandler = () => {
-     const formBtn = document.querySelector('#submit-movie');
+     const formBtn = document.querySelector('button.add-btn');
      formBtn.addEventListener('click', e=>{
-          e.preventDefault();
           const titleValue = document.querySelector('#title-form').value;
-          console.log(titleValue);
           const ratingValue = document.querySelector('#rating-form').value;
-          console.log(ratingValue);
-          postMovie(titleValue, ratingValue);
+          const genreValue = document.querySelector('#genre-add').value;
+          postMovie(titleValue, ratingValue, genreValue);
           getMovies()
           .then(movies => {
                renderMovies(movies);
@@ -87,7 +86,6 @@ const handleMovieEdit = ({id, title, rating, poster, genre}, movieCard) => {
           `;
      const submitBtn = movieCard.querySelector("button.submit");
      submitBtn.addEventListener("click", e=>{
-          /// run patch method
           const editTitle = movieCard.querySelector('.edit-title').value;
           const editRating = movieCard.querySelector('.edit-rating').value;
           const editGenre = movieCard.querySelector('#genre-submit').value;
@@ -110,6 +108,11 @@ const handleMovieEdit = ({id, title, rating, poster, genre}, movieCard) => {
           const editBtn = movieCard.querySelector("button.edit");
           editBtn.addEventListener("click", e=>{
                handleMovieEdit({id, title, rating, poster, genre}, movieCard);
+          })
+          const deleteBtn = movieCard.querySelector("button.delete");
+          deleteBtn.addEventListener("click", e => {
+               handleMovieDelete({id, title, rating, poster, genre}, movieCard);
+               movieCard.remove();
           })
      });
 }
