@@ -1,3 +1,7 @@
+/**
+ *  GET fetch function to get movies from JSON
+ * @returns {Promise<any>} - returns movies promise obj
+ */
 const getMovies = () => {
     const url = `http://localhost:3000/movies`;
     const options = {
@@ -12,6 +16,13 @@ const getMovies = () => {
         })
 }
 
+/**
+ * POST fetch function to add a movie to JSON
+ * @param title - movie title
+ * @param rating - movie rating
+ * @param genre - movie genre
+ * @returns {Promise<any>} - returns movies promise obj after adding movie
+ */
 const postMovie = (title, rating, genre) => {
      const newMovie = {
           title,
@@ -33,6 +44,12 @@ const postMovie = (title, rating, genre) => {
      })
 }
 
+/**
+ * PATCH fetch function to edit movies
+ * @param id - id of movie to edit
+ * @param movie - movie obj to edit
+ * @returns {Promise<any>} - returns edited movie obj
+ */
 const patchMovie = (id, movie) => {
      const newMovie = {
           ...movie
@@ -53,6 +70,9 @@ const patchMovie = (id, movie) => {
      })
 }
 
+/**
+ * Handler function to run when adding a movie, re-renders movies
+ */
 const formHandler = () => {
      const formBtn = document.querySelector('button.add-btn');
      formBtn.addEventListener('click', e=>{
@@ -67,6 +87,15 @@ const formHandler = () => {
      });
 };
 
+/**
+ * Handler function to run when editing a movie, adds submit button ability
+ * @param id - movie id
+ * @param title - movie title
+ * @param rating - movie rating
+ * @param poster - movie picture
+ * @param genre - movie genre
+ * @param movieCard - single movieCard to run edit on
+ */
 const handleMovieEdit = ({id, title, rating, poster, genre}, movieCard) => {
      movieCard.innerHTML = `
                <img src="../img/${poster}" className="card-img-top" alt="${title}">
@@ -117,6 +146,14 @@ const handleMovieEdit = ({id, title, rating, poster, genre}, movieCard) => {
      });
 }
 
+/**
+ * Renders single movieCard, w/ event listeners for edit/del movie; run in loop in renderMovies fn
+ * @param id - movie id
+ * @param title - movie title
+ * @param rating - movie rating
+ * @param poster - movie picture
+ * @param genre - movie genre
+ */
 const renderMovie = ({id, title, rating, poster, genre}) => {
      const movieCol = document.querySelector('.page-wrapper .movie-wrapper');
      const movieCard = document.createElement('div');
@@ -141,6 +178,16 @@ const renderMovie = ({id, title, rating, poster, genre}) => {
      movieCol.appendChild(movieCard);
 }
 
+/**
+ * DELETE fetch request to delete movie obj from JSON
+ * @param id - movie id
+ * @param title - movie title
+ * @param rating - movie rating
+ * @param poster - movie picture
+ * @param genre - movie genre
+ * @param movieCard - single movie to delete
+ * @returns {Promise<any>} - returns movies promise after deleting movie
+ */
 const handleMovieDelete = ({id, title, rating, poster, genre}, movieCard) => {
      const url = `http://localhost:3000/movies/${id}`;
      const options = {
@@ -155,6 +202,10 @@ const handleMovieDelete = ({id, title, rating, poster, genre}, movieCard) => {
          })
 }
 
+/**
+ * Function to render movies, places/removing loading spinner before looping each renderMovie
+ * @param movies - promise object of all movies in JSON
+ */
 const renderMovies = (movies) => {
      console.log("renderMovies called with movies => ", movies);
      const movieCol = document.querySelector('.page-wrapper .movie-wrapper');
@@ -172,6 +223,9 @@ const renderMovies = (movies) => {
      }
 }
 
+/**
+ * Base function w/ movies promise, add event listeners to trigger handleFilter, then re-renders result
+ */
 const filterMovies = () => {
      const searchInput = document.querySelector('#search');
      const genreSelect = document.querySelector('#genre');
@@ -192,6 +246,11 @@ const filterMovies = () => {
           });
 }
 
+/**
+ * Filter function to run filter method of search and genre values
+ * @param movies - movies promise obj passed down
+ * @returns {*} - returns filtered movieResult back to filterMovies
+ */
 const handleFilter = (movies) => {
      const searchValue = document.querySelector('#search').value;
      const genreValue = document.querySelector('#genre').value;
@@ -211,7 +270,6 @@ const handleFilter = (movies) => {
      return movieResult;
 }
 
-//MAIN
 (() => {
 getMovies()
      .then(movies => {
@@ -219,6 +277,4 @@ getMovies()
      });
 formHandler();
 filterMovies();
-
-//ƒ json() { [native code] }
 })();
