@@ -35,9 +35,9 @@
     height: 50px;
 }
 
-/*#form-wrapper {*/
-/*    position: fixed;*/
-/*    top: 50%;*/
-/*    right: -50%;*/
-/*    z-index: 2;*/
-/*}*/
+#bodyBackground {
+    position: fixed;
+    z-index: -1;
+    width: 100%;
+}
+
