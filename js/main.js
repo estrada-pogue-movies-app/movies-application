@@ -120,14 +120,14 @@ const handleMovieEdit = ({id, title, rating, poster, genre}, movieCard) => {
 const renderMovie = ({id, title, rating, poster, genre}) => {
      const movieCol = document.querySelector('.page-wrapper .movie-wrapper');
      const movieCard = document.createElement('div');
-     movieCard.classList.add('card');
+     movieCard.classList.add('card', 'img-wrapper');
      movieCard.innerHTML = `
-          <img src="../img/${poster}" className="card-img-top" alt="${title}">
-          <div className="card-body">
-               <h5 className="card-title">${title}</h5>
-               <p>${genre}</p><span className="card-text">${rating}/10</span>
-               <button class="edit"><img src="../img/bandaid-fill.svg"></button><button class="delete"><img src="../img/trash-fill.svg"</button>
-          </div>
+               <img src="../img/${poster}" className="card-img-top" alt="${title}">
+               <div class="card-body">
+                    <h5 className="card-title">${title}</h5>
+                    <p>${genre}</p><span className="card-text">${rating}/10</span>
+                    <button class="edit"><img src="../img/bandaid-fill.svg"></button><button class="delete"><img src="../img/trash-fill.svg"</button>
+               </div>  
           `;
      const editBtn = movieCard.querySelector("button.edit");
      editBtn.addEventListener("click", e=>{
@@ -156,6 +156,7 @@ const handleMovieDelete = ({id, title, rating, poster, genre}, movieCard) => {
 }
 
 const renderMovies = (movies) => {
+     console.log("renderMovies called with movies => ", movies);
      const movieCol = document.querySelector('.page-wrapper .movie-wrapper');
      movieCol.innerHTML = `
           <div id=\"loading-wrapper\">Loading...
@@ -174,35 +175,40 @@ const renderMovies = (movies) => {
 const filterMovies = () => {
      const searchInput = document.querySelector('#search');
      const genreSelect = document.querySelector('#genre');
-     genreSelect.addEventListener('change', e=>{
-          getMovies()
+     let filteredMovies = [];
+     getMovies()
           .then(movies=> {
-               let movieResult = movies;
-               console.log(e);
-               movieResult = movieResult.filter(movie => {
-                    if (e.target.value==="all") {
-                         return true;
-                    } else {
-                         return movie.genre === e.target.value;
-                    }
-               });
-               renderMovies(movieResult);
-          });
-     });
-     searchInput.addEventListener('input', e => {
-          getMovies()
-               .then(movies=> {
-                    let movieResult = movies;
-                    const searchValue = e.target.value;
-                    movieResult = movieResult.filter(movie => {
-                         if (!searchValue) {
-                              return true;
-                         }
-                         return movie.title.toLowerCase().includes(searchValue.toLowerCase());
+               genreSelect.addEventListener('change', e=>{
+                         filteredMovies = handleFilter(movies);
+                         renderMovies(filteredMovies);
                     });
-                    renderMovies(movieResult);
+               searchInput.addEventListener('input', e => {
+                    getMovies()
+                    .then(movies=> {
+                         filteredMovies = handleFilter(movies);
+                         renderMovies(filteredMovies);
+                    });
                });
+          });
+}
+
+const handleFilter = (movies) => {
+     const searchValue = document.querySelector('#search').value;
+     const genreValue = document.querySelector('#genre').value;
+     let movieResult = movies;
+     movieResult = movieResult.filter(movie => {
+          if(genreValue.toLowerCase() === "all") {
+               return true;
+          }
+          return movie.genre.toLowerCase() === genreValue.toLowerCase();
      });
+     movieResult = movieResult.filter(movie => {
+          if(!searchValue) {
+               return true;
+          }
+          return movie.title.toLowerCase().includes(searchValue.toLowerCase());
+     });
+     return movieResult;
 }
 
 //MAIN
